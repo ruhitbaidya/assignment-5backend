@@ -15,17 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.connectServer = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
-const app_1 = __importDefault(require("./app"));
-dotenv_1.default.config();
+const path_1 = __importDefault(require("path"));
+dotenv_1.default.config({ path: path_1.default.join(process.cwd(), ".env") });
 const connectServer = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield mongoose_1.default.connect(process.env.DBURL);
-        app_1.default.listen(process.env.PORT || 7000, () => {
-            console.log("server is connected 5000");
-        });
+        console.log("MongoDB connected successfully!");
     }
     catch (err) {
-        console.log(err);
+        console.log("MongoDB connection error:", err);
     }
 });
 exports.connectServer = connectServer;
